@@ -124,7 +124,7 @@ productForm.addEventListener("submit", (event) => {
     category.classList.remove("errorInput");
   }
   const product = {
-    name: name.value,
+    title: name.value,
     description: description.value,
     imageURL: imageURL.value,
     price: price.value,
