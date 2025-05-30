@@ -126,7 +126,7 @@ productForm.addEventListener("submit", (event) => {
   const product = {
     title: name.value,
     description: description.value,
-    image: image.value,
+    image: imageURL.value,
     price: price.value,
     category: category.value,
     id: Math.floor(Math.random() * 200),
