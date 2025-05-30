@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProductHub – Dynamic Product Manager</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section id="hero">
+      <div class="overlay">
+        <div class="hero-text-container">
+          <h1>Manage Your Products <span>Seamlessly.</span></h1>
+          <p class="paragrah">
+            Fetch products from an API, add new ones with ease, and update your
+            list instantly. Stay organized with built-in validation, delete
+            options, and saved data using local storage.
+          </p>
+        </div>
+        <form id="productForm">
+          <h2>Add a Product</h2>
+          <p class="message"></p>
+          <!-----------------------PRODUCT NAME -->
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" />
+          </div>
+          <!-----------------------PRODUCT DESCRIPTION -->
+          <div>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5"></textarea>
+          </div>
+          <!-----------------------IMAGE URL -->
+          <div>
+            <label for="image-url">Image URL</label>
+            <input type="text" id="image-url" name="image-url" />
+          </div>
+          <!-----------------------PRODUCT PRICE -->
+          <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" />
+          </div>
+          <!-----------------------PRODUCT BRAND -->
+          <div>
+            <label for="category">Brand</label>
+            <input type="text" id="category" name="category" />
+          </div>
+          <!-----------------------SUBMIT BUTTON -->
+          <button type="submit">Add Product</button>
+        </form>
+      </div>
+    </section>
+    <section id="products">
+      <h2>Products</h2>
+      <button id="reset-all">Reset All</button>
+      <div id="products-container">
+        <!-- ITEM SAMPLES -->
+        <!-- <div class="product-card">
+        <div class="image-container">
+          <img
+            src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+            alt=""
+          />
+        </div>
+
+        <h3>
+          Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA
+          III 2.5
+        </h3>
+        <p class="product-description">
+          3D NAND flash are applied to deliver high transfer speeds Remarkable
+          transfer speeds that enable faster bootup and improved overall system
+          performance. The advanced SLC Cache Technology allows performance
+          boost and longer lifespan 7mm slim design suitable for Ultrabooks and
+          Ultra-slim notebooks. Supports TRIM command, Garbage Collection
+          technology, RAID, and ECC (Error Checking & Correction) to provide the
+          optimized performance and enhanced reliability.
+        </p>
+        <p class="product-category">Electronics</p>
+        <p class="product-price">Price:<span>$545.40</span></p>
+        <div class="product-footer">
+          <p class="rate">5.5</p>
+          <button class="delete-button">Delete</button>
+        </div>
+      </div> -->
+      </div>
+    </section>
+    <script src="/index.js"></script>
+  </body>
+</html>
