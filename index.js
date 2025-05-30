@@ -30,7 +30,7 @@ const displayData = (data) => {
     productCard.innerHTML = `
         <div class="image-container">
           <img
-            src=${item.imageURL}
+            src=${item.image}
             alt=""
           />
         </div>
