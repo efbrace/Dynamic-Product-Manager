@@ -1,5 +1,5 @@
 const container = document.getElementById("products-container");
-const baseUrl = "https://fakestoreapi.com/products";
+const baseUrl = "https://btl-products-api.onrender.com/products";
 
 // //////////////  ES5
 // const fetchProducts = () => {
@@ -17,11 +17,31 @@ const getProduct = async () => {
     const response = await fetch(baseUrl, { method: "GET" });
     const data = await response.json();
     console.log(data);
-    localStorage.setItem("products", JSON.stringify(data));
+    displayData(data);
   } catch (error) {
     console.log(error);
   }
+
+  //////////////////////////////////////////// DELETING  PRODUCT
+  const deleteButton = document.querySelectorAll(".delete-button");
+
+  deleteButton.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      console.log(btn.value);
+      console.log(baseUrl + "/" + btn.value);
+      try {
+        const response = await fetch(`${baseUrl}/${btn.value}`, {
+          method: "DELETE",
+        });
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
 };
+getProduct();
+//////////////////////////////////////////// DISPLAYING  PRODUCT
 
 const displayData = (data) => {
   data.forEach((item) => {
@@ -42,7 +62,7 @@ const displayData = (data) => {
         <p class="product-category">${item.category}</p>
         <p class="product-price">Price:<span>$${item.price}</span></p>
         <div class="product-footer">
-          <p class="rate">${item.rating.rate}</p>
+          <p class="rate">${item.rating}</p>
           <button class="delete-button" value=${item.id}>Delete</button>
         </div>
 
@@ -50,20 +70,6 @@ const displayData = (data) => {
     container.appendChild(productCard);
   });
 };
-
-const localData = localStorage.getItem("products");
-const newData = JSON.parse(localData);
-
-if (localData === null) {
-  console.log("RE-FETCHING PRODUCTS");
-  getProduct();
-  console.log("DISPLAYED PRODUCTS");
-  displayData(JSON.parse(localData));
-} else {
-  console.log("DISPLAYED PRODUCTS FROM LOCAL STORAGE");
-  displayData(JSON.parse(localData));
-  console.log(JSON.parse(localData));
-}
 
 //////////////////////////////////////////// ADDING NEW PRODUCT FROM FORM
 const productForm = document.getElementById("productForm");
@@ -76,7 +82,6 @@ productForm.addEventListener("submit", (event) => {
   const price = document.getElementById("price");
   const category = document.getElementById("category");
   const message = document.querySelector(".message");
-  const products = [];
 
   if (name.value.trim() === "" || null) {
     message.innerText = "Please enter a valid product name.";
@@ -124,46 +129,45 @@ productForm.addEventListener("submit", (event) => {
     category.classList.remove("errorInput");
   }
   const product = {
-    name: name.value,
+    title: name.value,
     description: description.value,
-    imageURL: imageURL.value,
+    image: imageURL.value,
     price: price.value,
     category: category.value,
-    id: Math.floor(Math.random() * 200),
-    rating: {
-      count: 123,
-      rate: 4.2,
-    },
+    brand: category.value,
+    rating: 4.2,
   };
-
-  newData.push(product);
-  localStorage.setItem("products", JSON.stringify(newData));
+  postProduct(product);
 
   message.innerText = "Product added!";
   message.classList.add("success");
-  window.location.reload();
   productForm.reset();
 });
 
-//////////////////////////////////////////// DELETING  PRODUCT FROM LOCALSTORAGE
+//////////////////////////////////////////// ADD  PRODUCT FUNCTION
 
-const deleteButton = document.querySelectorAll(".delete-button");
-
-deleteButton.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    let btnID = btn.value;
-    const allNewData = newData.filter((pdt) => pdt.id != btnID);
-    localStorage.setItem("products", JSON.stringify(allNewData));
-    console.log("Product added successfully!");
+const postProduct = async (data) => {
+  console.log(data);
+  console.log(JSON.stringify(data));
+  try {
+    const response = await fetch(baseUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    console.log(await response.json());
     window.location.reload();
-  });
-});
-//////////////////////////////////////////// DELETING  PRODUCT FROM LOCALSTORAGE
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//////////////////////////////////////////// RESET PRODUCTS
 
 const resetAllButton = document.getElementById("reset-all");
 
-resetAllButton.addEventListener("click", () => {
-  localStorage.clear();
-  window.location.reload();
-  console.log("LOCAL STORAGE CLEARED");
-});
+// resetAllButton.addEventListener("click", () => {
+//   localStorage.clear();
+//   window.location.reload();
+//   console.log("LOCAL STORAGE CLEARED");
+// });
